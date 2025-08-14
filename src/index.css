@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #8A2BE2;
+  --secondary: #FF00FF;
+  --neon-green: #39FF14;
+  --neon-blue: #00FFFF;
+  --neon-pink: #FF10F0;
+  --dark: #0F0F0F;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--dark);
+  color: white;
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: transform 0.1s ease;
+}
+
+.custom-cursor.hover {
+  transform: scale(2);
+  background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1A1A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Custom classes */
+@layer components {
+  .neon-border {
+    @apply relative border border-transparent;
+  }
+  
+  .neon-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-md;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--neon-blue), var(--neon-pink));
+    z-index: -1;
+    animation: border-glow 3s linear infinite;
+  }
+  
+  .neon-text {
+    @apply font-cyber;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary), 0 0 20px var(--primary);
+  }
+  
+  .glitch-effect {
+    @apply relative;
+  }
+  
+  .glitch-effect::before,
+  .glitch-effect::after {
+    content: attr(data-text);
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+  
+  .glitch-effect::before {
+    @apply text-neon-blue;
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    animation-delay: 0.1s;
+  }
+  
+  .glitch-effect::after {
+    @apply text-neon-pink;
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+    animation-delay: 0.2s;
+  }
+  
+  .matrix-bg {
+    @apply fixed top-0 left-0 w-full h-full pointer-events-auto z-[-1];
+  }
+  
+  .btn-cyber {
+    @apply relative px-6 py-2 font-cyber text-white bg-transparent border border-primary overflow-hidden transition-all duration-300;
+  }
+  
+  .btn-cyber::before {
+    content: '';
+    @apply absolute inset-0 bg-primary opacity-50 transform scale-x-0 origin-left transition-transform duration-300;
+  }
+  
+  .btn-cyber:hover::before {
+    @apply transform scale-x-100;
+  }
+  
+  .btn-cyber:hover {
+    @apply shadow-[0_0_10px_rgba(138,43,226,0.7)];
+  }
+  
+  .card-cyber {
+    @apply relative rounded-md overflow-hidden border border-primary/30 transition-all duration-300;
+    background: rgba(30, 30, 30, 0.4);
+    backdrop-filter: blur(10px);
+  }
+  
+  .card-cyber:hover {
+    @apply border-primary shadow-[0_0_15px_rgba(138,43,226,0.5)];
+    background: rgba(30, 30, 30, 0.6);
+  }
+  
+  .card-cyber::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-neon-blue to-secondary;
+  }
+
+  /* Interactive hover effects */
+  .interactive-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .interactive-hover:hover {
+    @apply transform scale-105 shadow-[0_0_20px_rgba(138,43,226,0.8)];
+  }
+
+  /* Particle effect */
+  .particle {
+    @apply absolute w-1 h-1 bg-primary rounded-full;
+    animation: particle-float 2s ease-out forwards;
+  }
+
+  /* 3D Parallax Effects */
+  .parallax-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .parallax-card {
+    @apply transition-all duration-500;
+    transform: translateZ(0);
+  }
+
+  .parallax-card:hover {
+    transform: translateZ(20px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+      0 20px 40px rgba(138, 43, 226, 0.3),
+      0 0 20px rgba(138, 43, 226, 0.2);
+  }
+
+  /* Liquid Animation */
+  .liquid-bg {
+    @apply relative overflow-hidden;
+  }
+
+  .liquid-bg::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--neon-blue));
+    background-size: 400% 400%;
+    animation: liquid-flow 8s ease-in-out infinite;
+    opacity: 0.1;
+  }
+
+  /* Holographic Effects */
+  .holographic {
+    @apply relative overflow-hidden;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    background-size: 200% 200%;
+    animation: holographic-sweep 3s ease-in-out infinite;
+  }
+
+  .holographic::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: holographic-scan 2s ease-in-out infinite;
+  }
+
+  /* Skill Holographic Effect */
+  .skill-holographic {
+    @apply relative overflow-hidden rounded-lg;
+    background: linear-gradient(
+      135deg,
+      rgba(138, 43, 226, 0.1),
+      rgba(255, 0, 255, 0.1),
+      rgba(0, 255, 255, 0.1)
+    );
+    border: 1px solid rgba(138, 43, 226, 0.3);
+  }
+
+  .skill-holographic::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    background-size: 200% 200%;
+    animation: holographic-pulse 4s ease-in-out infinite;
+  }
+
+  .skill-holographic:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+      0 10px 30px rgba(138, 43, 226, 0.4),
+      0 0 20px rgba(138, 43, 226, 0.2);
+  }
+}
+
+@keyframes border-glow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0);
+  }
+}
+
+@keyframes liquid-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes holographic-sweep {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes holographic-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes holographic-pulse {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.3;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.7;
+  }
+}
