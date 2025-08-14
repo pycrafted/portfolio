@@ -1,56 +1,82 @@
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
-import MatrixRain from "./components/MatrixRain";
+import CustomCursor from "./components/CustomCursor";
 import ParticlesBackground from "./components/ParticlesBackground";
 import AnimatedGradient from "./components/AnimatedGradient";
-import CustomCursor from "./components/CustomCursor";
-import Footer from "./components/Footer";
-import Loader from "./components/Loader";
+import LiquidWaves from "./components/LiquidWaves";
+// import MatrixRain from "./components/MatrixRain";
+import PresentationMode from "./components/PresentationMode";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [presentationMode, setPresentationMode] = useState(false);
+  const [currentSection, setCurrentSection] = useState(0);
   const [darkMode, setDarkMode] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    // Simulate loading time
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+  const sections = [
+    { name: 'Accueil', path: '/' },
+    { name: 'À Propos', path: '/about' },
+    { name: 'Projets', path: '/projects' },
+    { name: 'Compétences', path: '/skills' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
-    return () => clearTimeout(timer);
-  }, []);
+  const handlePresentationMode = () => {
+    setPresentationMode(true);
+    setCurrentSection(0);
+    navigate('/');
+  };
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const handleClosePresentation = () => {
+    setPresentationMode(false);
+  };
+
+  const handleSectionChange = (section: number) => {
+    setCurrentSection(section);
+    navigate(sections[section].path);
+  };
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
-    <div className="min-h-screen text-white relative overflow-hidden" style={{ backgroundColor: 'transparent' }}>
+    <div className="App" style={{ backgroundColor: 'transparent' }}>
+      {/* Background Effects */}
       <AnimatedGradient />
       <ParticlesBackground />
+      <LiquidWaves />
       {/* <MatrixRain /> */}
       <CustomCursor />
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <AnimatePresence mode="wait">
+
+      {/* Presentation Mode */}
+      {presentationMode && (
+        <PresentationMode
+          isActive={presentationMode}
+          onClose={handleClosePresentation}
+          currentSection={currentSection}
+          onSectionChange={handleSectionChange}
+        />
+      )}
+
+      {/* Main Content */}
+      {!presentationMode && (
+        <Navbar 
+          darkMode={darkMode} 
+          toggleDarkMode={toggleDarkMode} 
+          onPresentationMode={handlePresentationMode} 
+        />
+      )}
+      
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -58,8 +84,9 @@ function App() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-      </AnimatePresence>
-      <Footer />
+      </main>
+
+      {!presentationMode && <Footer />}
     </div>
   );
 }

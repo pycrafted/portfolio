@@ -1,91 +1,144 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class", // Active le mode sombre via la classe "dark"
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
-      colors: {
-        primary: {
-          DEFAULT: "#8A2BE2", // Violet principal
-          dark: "#6A1CB2", // Version foncée
-          light: "#9D4EFF", // Version claire
-        },
-        secondary: {
-          DEFAULT: "#FF00FF", // Magenta
-          dark: "#CC00CC",
-          light: "#FF33FF",
-        },
-        neon: {
-          green: "#39FF14",
-          blue: "#00FFFF",
-          pink: "#FF10F0",
-          purple: "#B026FF",
-          yellow: "#FFFF00",
-        },
-        dark: {
-          DEFAULT: "#121212", // Fond sombre amélioré pour un meilleur contraste
-          lighter: "#1E1E1E", // Gris très foncé, mais lisible
-          light: "#2C2C2C", // Gris plus clair pour le mode dark
-        },
-        light: {
-          DEFAULT: "#F8F9FA", // Fond clair amélioré (blanc cassé)
-          dark: "#E0E0E0", // Gris clair pour les contrastes
-          darker: "#CFCFCF", // Gris plus foncé
-        },
-        text: {
-          light: "#000000", // Texte noir pour le mode clair
-          dark: "#FFFFFF", // Texte blanc pour le mode sombre
-        },
-      },
       fontFamily: {
-        cyber: ["Share Tech Mono", "monospace"],
-        sans: ["Rajdhani", "sans-serif"],
+        'cyber': ['Orbitron', 'monospace'],
+      },
+      colors: {
+        'primary': '#00ffff',
+        'secondary': '#ff00ff',
+        'neon-blue': '#00bfff',
+        'neon-pink': '#ff69b4',
+        'neon-yellow': '#ffff00',
+        'neon-green': '#00ff00',
+        'dark': '#0a0a0a',
+        'dark-lighter': '#1a1a1a',
       },
       animation: {
-        glitch: "glitch 1s linear infinite",
-        glow: "glow 2s ease-in-out infinite alternate",
-        float: "float 6s ease-in-out infinite",
-        matrix: "matrix 20s linear infinite",
-        pulseNeon: "pulseNeon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        'particle-float': 'particle-float 6s ease-in-out infinite',
+        'liquid-flow': 'liquid-flow 8s ease-in-out infinite',
+        'holographic-sweep': 'holographic-sweep 3s ease-in-out infinite',
+        'holographic-scan': 'holographic-scan 2s ease-in-out infinite',
+        'holographic-pulse': 'holographic-pulse 4s ease-in-out infinite',
+        'wave-ripple': 'wave-ripple-animation 2s ease-out infinite',
+        'glitch': 'glitch 0.3s ease-in-out infinite',
+        'float': 'float 3s ease-in-out infinite',
+        'matrix': 'matrix 2s linear infinite',
+        'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
       },
       keyframes: {
-        glitch: {
-          "0%, 100%": { transform: "translate(0)" },
-          "20%": { transform: "translate(-5px, 5px)" },
-          "40%": { transform: "translate(-5px, -5px)" },
-          "60%": { transform: "translate(5px, 5px)" },
-          "80%": { transform: "translate(5px, -5px)" },
-        },
-        glow: {
-          "0%": {
-            textShadow:
-              "0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #8A2BE2, 0 0 20px #8A2BE2",
+        'particle-float': {
+          '0%, 100%': {
+            transform: 'translateY(0px) rotate(0deg)',
+            opacity: '0',
           },
-          "100%": {
-            textShadow:
-              "0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #8A2BE2, 0 0 40px #8A2BE2",
+          '50%': {
+            transform: 'translateY(-20px) rotate(180deg)',
+            opacity: '1',
           },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-20px)" },
-        },
-        matrix: {
-          "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(-10000px)" },
-        },
-        pulseNeon: {
-          "0%, 100%": {
-            opacity: 1,
-            boxShadow: "0 0 10px #8A2BE2, 0 0 20px #8A2BE2, 0 0 30px #8A2BE2",
+        'liquid-flow': {
+          '0%, 100%': {
+            backgroundPosition: '0% 50%',
           },
-          "50%": {
-            opacity: 0.7,
-            boxShadow: "0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 15px #8A2BE2",
+          '50%': {
+            backgroundPosition: '100% 50%',
+          },
+        },
+        'holographic-sweep': {
+          '0%, 100%': {
+            backgroundPosition: '0% 50%',
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
+          },
+        },
+        'holographic-scan': {
+          '0%': {
+            left: '-100%',
+          },
+          '100%': {
+            left: '100%',
+          },
+        },
+        'holographic-pulse': {
+          '0%, 100%': {
+            backgroundPosition: '0% 50%',
+            transform: 'scale(1)',
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
+            transform: 'scale(1.02)',
+          },
+        },
+        'wave-ripple-animation': {
+          '0%': {
+            width: '0',
+            height: '0',
+            opacity: '1',
+          },
+          '100%': {
+            width: '200px',
+            height: '200px',
+            opacity: '0',
+          },
+        },
+        'glitch': {
+          '0%, 100%': {
+            transform: 'translate(0)',
+          },
+          '20%': {
+            transform: 'translate(-2px, 2px)',
+          },
+          '40%': {
+            transform: 'translate(-2px, -2px)',
+          },
+          '60%': {
+            transform: 'translate(2px, 2px)',
+          },
+          '80%': {
+            transform: 'translate(2px, -2px)',
+          },
+        },
+        'float': {
+          '0%, 100%': {
+            transform: 'translateY(0px)',
+          },
+          '50%': {
+            transform: 'translateY(-10px)',
+          },
+        },
+        'matrix': {
+          '0%': {
+            transform: 'translateY(-100%)',
+            opacity: '0',
+          },
+          '10%': {
+            opacity: '1',
+          },
+          '90%': {
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'translateY(100vh)',
+            opacity: '0',
+          },
+        },
+        'pulse-neon': {
+          '0%, 100%': {
+            boxShadow: '0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary)',
+          },
+          '50%': {
+            boxShadow: '0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary)',
           },
         },
       },
     },
   },
   plugins: [],
-};
+}

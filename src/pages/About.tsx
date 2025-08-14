@@ -17,8 +17,15 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const About = () => {
+interface AboutProps {
+  isPresentationMode?: boolean;
+}
+
+const About: React.FC<AboutProps> = ({ isPresentationMode = false }) => {
   useEffect(() => {
+    // Skip GSAP animations in presentation mode
+    if (isPresentationMode) return;
+
     // GSAP animations
     const timeline = gsap.timeline();
 
@@ -64,7 +71,7 @@ const About = () => {
       // Clean up ScrollTrigger
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [isPresentationMode]);
 
   return (
     <motion.div
@@ -77,14 +84,14 @@ const About = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h1 className="about-title text-4xl md:text-5xl font-bold mb-8 font-cyber text-center">
+            <h1 className={`about-title text-4xl md:text-5xl font-bold mb-8 font-cyber text-center ${isPresentationMode ? 'opacity-100' : ''}`}>
               <span className="text-primary">&lt;</span> À Propos{" "}
               <span className="text-primary">/&gt;</span>
             </h1>
 
-                                        <div className="about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 md:p-8 border border-primary/20 shadow-lg mb-12">
-                <div className="flex flex-col md:flex-row items-center mb-8 max-w-6xl mx-auto">
-                  <div className="w-full">
+            <div className={`about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 md:p-8 border border-primary/20 shadow-lg mb-12 ${isPresentationMode ? 'opacity-100' : ''}`}>
+              <div className="flex flex-col md:flex-row items-center mb-8 max-w-6xl mx-auto">
+                <div className="w-full">
                   <h2 className="text-2xl font-bold mb-2 font-cyber text-white">
                     Ingénieur Logiciel | Développeur Web
                   </h2>
@@ -103,7 +110,7 @@ const About = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="about-content">
+                <div className={`about-content ${isPresentationMode ? 'opacity-100' : ''}`}>
                   <h3 className="text-xl font-bold mb-3 font-cyber flex items-center">
                     <Code className="mr-2 text-primary" size={20} />
                     <span>Développement Web</span>
@@ -115,7 +122,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="about-content">
+                <div className={`about-content ${isPresentationMode ? 'opacity-100' : ''}`}>
                   <h3 className="text-xl font-bold mb-3 font-cyber flex items-center">
                     <Database className="mr-2 text-neon-blue" size={20} />
                     <span>Architecture & DevOps</span>
@@ -127,7 +134,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="about-content">
+                <div className={`about-content ${isPresentationMode ? 'opacity-100' : ''}`}>
                   <h3 className="text-xl font-bold mb-3 font-cyber flex items-center">
                     <Shield className="mr-2 text-neon-yellow" size={20} />
                     <span>Sécurité & Tests</span>
@@ -139,7 +146,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="about-content">
+                <div className={`about-content ${isPresentationMode ? 'opacity-100' : ''}`}>
                   <h3 className="text-xl font-bold mb-3 font-cyber flex items-center">
                     <Users className="mr-2 text-neon-pink" size={20} />
                     <span>Formation & Support</span>
@@ -160,13 +167,13 @@ const About = () => {
       <section className="timeline-section py-16 bg-dark-lighter/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="about-title text-3xl font-bold mb-12 font-cyber text-center">
+            <h2 className={`about-title text-3xl font-bold mb-12 font-cyber text-center ${isPresentationMode ? 'opacity-100' : ''}`}>
               <span className="text-primary">&lt;</span> Parcours{" "}
               <span className="text-primary">/&gt;</span>
             </h2>
 
             <div className="relative border-l-2 border-primary/50 pl-8 ml-4 md:ml-8">
-              <div className="timeline-item mb-12 relative">
+              <div className={`timeline-item mb-12 relative ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <div className="absolute -left-[42px] bg-dark p-2 rounded-full border-2 border-primary">
                   <GraduationCap className="text-primary" size={20} />
                 </div>
@@ -181,7 +188,7 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="timeline-item mb-12 relative">
+              <div className={`timeline-item mb-12 relative ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <div className="absolute -left-[42px] bg-dark p-2 rounded-full border-2 border-neon-blue">
                   <Briefcase className="text-neon-blue" size={20} />
                 </div>
@@ -198,7 +205,7 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="timeline-item mb-12 relative">
+              <div className={`timeline-item mb-12 relative ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <div className="absolute -left-[42px] bg-dark p-2 rounded-full border-2 border-neon-yellow">
                   <Briefcase className="text-neon-yellow" size={20} />
                 </div>
@@ -215,7 +222,7 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="timeline-item relative">
+              <div className={`timeline-item relative ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <div className="absolute -left-[42px] bg-dark p-2 rounded-full border-2 border-neon-pink">
                   <GraduationCap className="text-neon-pink" size={20} />
                 </div>
@@ -238,13 +245,13 @@ const About = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="about-title text-3xl font-bold mb-12 font-cyber text-center">
+            <h2 className={`about-title text-3xl font-bold mb-12 font-cyber text-center ${isPresentationMode ? 'opacity-100' : ''}`}>
               <span className="text-primary">&lt;</span> Compétences{" "}
               <span className="text-primary">/&gt;</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-primary/20">
+              <div className={`about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-primary/20 ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <h3 className="text-lg font-bold font-cyber mb-3 flex items-center">
                   <Code className="mr-2 text-primary" size={18} />
                   <span>Développement</span>
@@ -257,7 +264,7 @@ const About = () => {
                 </ul>
               </div>
 
-              <div className="about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-neon-blue/20">
+              <div className={`about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-neon-blue/20 ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <h3 className="text-lg font-bold font-cyber mb-3 flex items-center">
                   <Rocket className="mr-2 text-neon-blue" size={18} />
                   <span>DevOps & CI/CD</span>
@@ -269,7 +276,7 @@ const About = () => {
                 </ul>
               </div>
 
-              <div className="about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-neon-yellow/20">
+              <div className={`about-content bg-dark-lighter/70 backdrop-blur-md rounded-lg p-6 border border-neon-yellow/20 ${isPresentationMode ? 'opacity-100' : ''}`}>
                 <h3 className="text-lg font-bold font-cyber mb-3 flex items-center">
                   <Shield className="mr-2 text-neon-yellow" size={18} />
                   <span>Sécurité & Tests</span>

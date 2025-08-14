@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X, Cpu } from "lucide-react";
+import { Menu, X, Cpu, Presentation } from "lucide-react";
 
 interface NavbarProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
+  onPresentationMode: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar: React.FC<NavbarProps> = ({ onPresentationMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -81,32 +82,26 @@ const Navbar: React.FC<NavbarProps> = () => {
                 {link.name}
               </Link>
             ))}
-            {/* <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full hover:bg-dark-light transition-colors duration-300"
-              aria-label="Toggle dark mode"
+            
+            {/* Presentation Mode Button */}
+            <button
+              onClick={onPresentationMode}
+              className="btn-cyber group flex items-center space-x-2 px-4 py-2"
             >
-              {darkMode ? (
-                <Sun className="h-5 w-5 text-neon-yellow" />
-              ) : (
-                <Moon className="h-5 w-5 text-primary" />
-              )}
-            </button> */}
+              <Presentation size={16} className="group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-cyber">Présentation</span>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center md:hidden">
-            {/* <button
-              onClick={toggleDarkMode}
-              className="p-2 mr-2 rounded-full hover:bg-dark-light transition-colors duration-300"
-              aria-label="Toggle dark mode"
+            <button
+              onClick={onPresentationMode}
+              className="p-2 mr-2 rounded-full hover:bg-primary/20 transition-colors duration-300"
+              aria-label="Presentation Mode"
             >
-              {darkMode ? (
-                <Sun className="h-5 w-5 text-neon-yellow" />
-              ) : (
-                <Moon className="h-5 w-5 text-primary" />
-              )}
-            </button> */}
+              <Presentation className="h-5 w-5 text-primary" />
+            </button>
             <button
               onClick={toggleMenu}
               className="p-2 rounded-full hover:bg-dark-light transition-colors duration-300"
