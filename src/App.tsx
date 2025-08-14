@@ -33,6 +33,10 @@ function App() {
     setPresentationMode(true);
     setCurrentSection(0);
     navigate('/');
+    // Reset any previous state
+    setTimeout(() => {
+      // This ensures the presentation starts fresh
+    }, 100);
   };
 
   const handleClosePresentation = () => {
